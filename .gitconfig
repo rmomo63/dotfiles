@@ -3,7 +3,15 @@
 	email = ryoya.momose@togawa.cs.waseda.ac.jp
 [color]
 	ui = true
+	diff = auto
+	status = auto
+	branch = auto
 [core]
 	autoCRLF = false
+	editor = vim -c \"set fenc=utf-8\"
+	precomposeunicode = true
+	quotepath = false
 [alias]
 	lg = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
+[push]
+	default = simple
