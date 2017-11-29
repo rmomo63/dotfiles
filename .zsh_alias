@@ -1,0 +1,84 @@
+########################################
+# エイリアス
+
+alias la='ls -a -v'
+alias ll='ls -l -v'
+
+alias rm='rm -i -v'
+alias cp='cp -i -v'
+alias mv='mv -i -v'
+alias chmod='chmod -v'
+alias mkdir='mkdir -p'
+alias pd='popd'
+alias relogin="exec $SHELL -l"
+
+# sudo の後のコマンドでエイリアスを有効にする
+alias sudo='sudo '
+
+# グローバルエイリアス
+alias -g L='| less'
+alias -g G='| grep'
+
+# C で標準出力をクリップボードにコピーする
+# mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
+if which pbcopy >/dev/null 2>&1 ; then
+    # Mac
+    alias -g C='| pbcopy'
+elif which xsel >/dev/null 2>&1 ; then
+    # Linux
+    alias -g C='| xsel --input --clipboard'
+elif which putclip >/dev/null 2>&1 ; then
+    # Cygwin
+    alias -g C='| putclip'
+fi
+
+########################################
+# OS 別の設定
+case ${OSTYPE} in
+    darwin*)
+        #Mac用の設定
+        export CLICOLOR=1
+        alias ls='ls -G -F'
+        ;;
+    linux*)
+        #Linux用の設定
+        alias ls='ls -F --color=auto'
+        ;;
+esac
+
+# Docker-Compose
+alias dc='docker-compose'
+alias dcr='docker-compose exec rails bundle exec rails'
+alias dcu='docker-compose up -d'
+alias dci='docker-compose exec rails bundle install'
+alias dcc='docker ps -aq -f "status=exited" | xargs docker rm -v && docker images -q -f "dangling=true" | xargs docker rmi && docker volume ls -qf dangling=true | xargs docker volume rm'
+alias dcs='docker-compose ps'
+
+# git
+alias gst='git status'
+alias glog='git log --oneline --decorate --color --graph'
+alias gd='git diff'
+alias ga='git add'
+alias ga.='git add .'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gco='git checkout'
+
+function current_branch() {
+    git_current_branch
+}
+
+function git_current_branch() {
+    local ref
+    ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
+    local ret=$?
+    if [[ $ret != 0 ]]; then
+        [[ $ret == 128 ]] && return  # no git repo.
+        ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
+    fi
+    echo ${ref#refs/heads/}
+}
+
+alias ggpull="git pull origin $(current_branch)"
+# alias ggpush="git push origin $(current_branch)"
+funciton ggpush (){ git push $@ origin $(current_branch) }
