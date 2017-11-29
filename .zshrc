@@ -129,59 +129,41 @@ setopt hist_reduce_blanks
 setopt extended_glob
 
 ########################################
-# キーバインド
+# 履歴検索peco
 
-# ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
-bindkey '^R' history-incremental-pattern-search-backward
-
-########################################
-# エイリアス
-
-alias la='ls -a'
-alias ll='ls -l'
-
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-
-alias mkdir='mkdir -p'
-alias relogin='exec $SHELL -l'
-
-# sudo の後のコマンドでエイリアスを有効にする
-alias sudo='sudo '
-
-# グローバルエイリアス
-alias -g L='| less'
-alias -g G='| grep'
-
-# C で標準出力をクリップボードにコピーする
-# mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
-if which pbcopy >/dev/null 2>&1 ; then
-    # Mac
-    alias -g C='| pbcopy'
-elif which xsel >/dev/null 2>&1 ; then
-    # Linux
-    alias -g C='| xsel --input --clipboard'
-elif which putclip >/dev/null 2>&1 ; then
-    # Cygwin
-    alias -g C='| putclip'
-fi
-
-
-
-########################################
-# OS 別の設定
+# OS別の設定(peco)
 case ${OSTYPE} in
     darwin*)
-        #Mac用の設定
-        export CLICOLOR=1
-        alias ls='ls -G -F'
-        ;;
+        # Mac
+        export GOROOT=/usr/local/opt/go/libexec
+        export GOPATH=$HOME
+        export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+    ;;
     linux*)
-        #Linux用の設定
-        alias ls='ls -F --color=auto'
-        ;;
+        # Linux
+        export GOROOT=/usr/local/go
+        export GOPATH=$HOME/go
+        # ssh接続した時にローカルの環境変数がリモートに送信されるのでその対処
+        export LC_ALL=en_US.UTF-8
+        export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+    ;;
 esac
+
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(\history -n 1 | \
+    eval $tac | \
+    peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
 
 
 # ls色設定
@@ -209,5 +191,12 @@ function peco-select-history() {
     CURSOR=$#BUFFER
     zle clear-screen
 }
-zle -N peco-select-history
-bindkey '^r' peco-select-history
+
+# エイリアス集を読み込む
+source ~/.dotfiles/.zsh_alias
+
+# 環境変数のセット
+eval "$(rbenv init -)"
+eval "$(nodenv init -)"
+eval "$(dinghy shellinit)"
+
