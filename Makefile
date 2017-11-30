@@ -8,5 +8,8 @@ all:
 deploy:
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 
+mac_init:
+	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init/mac.sh
+
 init:
 	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init/init.sh
