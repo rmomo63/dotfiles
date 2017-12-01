@@ -13,6 +13,7 @@ if has "brew"; then
   brew tap 'caskroom/cask'
   brew tap 'homebrew/dupes'
   brew tap 'sanemat/font'
+  brew tap 'codekitchen/dinghy'
 
   local list_formulae
   local -a missing_formulae
@@ -22,6 +23,7 @@ if has "brew"; then
     'ruby-build'
     'rbenv'
     'tmux'
+    'docker-compose'
     'tig'
     'peco'
     'zsh'

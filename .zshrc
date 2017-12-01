@@ -198,5 +198,5 @@ source ~/.dotfiles/.zsh_alias
 # 環境変数のセット
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"
+eval "$(pyenv init -)"
 eval "$(dinghy shellinit)"
-
