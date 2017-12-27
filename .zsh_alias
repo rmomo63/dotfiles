@@ -15,6 +15,9 @@ alias relogin="exec $SHELL -l"
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 
+# texコンパイル
+alias tex='docker run --rm -it -v $PWD:/workdir -v ~/work/research/share:/workdir/share rn0rno/docker-latex-jp'
+
 # グローバルエイリアス
 alias -g L='| less'
 alias -g G='| grep'
