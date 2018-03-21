@@ -49,8 +49,14 @@ zstyle ':vcs_info:*' actionformats '%K{92}%F{red} %b %a %f%k%c%u'
 precmd () { vcs_info }
 setopt prompt_subst
 
+# Virtualenv
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`')'
+}
+
+
 # プロンプトの表示
-PROMPT='%K{240}${HOST_NAME}${REMOTE_PROMPT}${CURRENT_DIR}${vcs_info_msg_0_}%k
+PROMPT='%K{240}$(virtualenv_info)${HOST_NAME}${REMOTE_PROMPT}${CURRENT_DIR}${vcs_info_msg_0_}%k
 ${INPUT_ARROW} '
 
 
@@ -200,3 +206,5 @@ eval "$(rbenv init -)"
 eval "$(nodenv init -)"
 eval "$(pyenv init -)"
 eval "$(dinghy shellinit)"
+export PATH="/usr/local/sbin:$PATH"
+export PATH=$PATH:/Users/ryoya.momose/Library/Android/sdk/platform-tools
