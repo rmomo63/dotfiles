@@ -199,12 +199,5 @@ function peco-select-history() {
 }
 
 # エイリアス集を読み込む
-source ~/.dotfiles/.zsh_alias
-
-# 環境変数のセット
-eval "$(rbenv init -)"
-eval "$(nodenv init -)"
-eval "$(pyenv init -)"
-eval "$(dinghy shellinit)"
-export PATH="/usr/local/sbin:$PATH"
-export PATH=$PATH:/Users/ryoya.momose/Library/Android/sdk/platform-tools
+source ~/.zsh_alias
+source ~/.zsh_specific
