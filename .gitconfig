@@ -1,6 +1,6 @@
 [user]
 	name = Momose Ryoya
-	email = ryoya.momose@togawa.cs.waseda.ac.jp
+	email = ryoya-momose@cookpad.com
 [color]
 	ui = true
 	diff = auto
@@ -16,3 +16,5 @@
 	lg = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
 [push]
 	default = simple
+[init]
+	templatedir = ~/.dotfiles/.git_template
