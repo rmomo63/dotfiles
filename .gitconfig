@@ -1,6 +1,10 @@
 [user]
-	name = Momose Ryoya
-	email = ryoya-momose@cookpad.com
+	name = rn0rno
+	email = 25890337+rn0rno@users.noreply.github.com
+
+[includeIf "gitdir:~/work/"]
+ path = ~/work/.gitconfig
+
 [color]
 	ui = true
 	diff = auto
