@@ -3,7 +3,10 @@
 	email = 25890337+rn0rno@users.noreply.github.com
 
 [includeIf "gitdir:~/work/"]
- path = ~/work/.gitconfig
+ 	path = ~/.dotfiles/.gitconfig.work
+
+[includeIf "gitdir:~/lab/"]
+	path = ~/.dotfiles/.gitconfig.lab
 
 [color]
 	ui = true
