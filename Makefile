@@ -1,6 +1,6 @@
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 CANDIDATES := $(wildcard .??*) bin
-EXCLUSIONS := .DS_Store .git .gitmodules .travis.yml .zsh_specific.sample
+EXCLUSIONS := .DS_Store .git .gitmodules .travis.yml .zsh_specific.sample .zsh_specific.sample .netrc.sample
 DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 all:

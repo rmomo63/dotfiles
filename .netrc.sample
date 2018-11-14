@@ -1,0 +1,3 @@
+machine github.com
+  login <!-- Github UserName -->
+  password <!-- Github AccessToken -->
