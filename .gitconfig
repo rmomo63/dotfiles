@@ -3,25 +3,29 @@
 	email = 25890337+rn0rno@users.noreply.github.com
 
 [includeIf "gitdir:~/work/"]
- 	path = ~/.dotfiles/.gitconfig.work
-
-[includeIf "gitdir:~/lab/"]
-	path = ~/.dotfiles/.gitconfig.lab
+	path = ~/work/.gitconfig
 
 [color]
 	ui = true
 	diff = auto
 	status = auto
 	branch = auto
+
 [core]
 	autoCRLF = false
 	editor = vim -c \"set fenc=utf-8\"
 	precomposeunicode = true
 	quotepath = false
 	excludesfile = /Users/ryoya.momose/.gitignore_global
+
 [alias]
 	lg = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
+
 [push]
 	default = simple
+
 [init]
 	templatedir = ~/.dotfiles/.git_template
+
+[include]
+	path = ~/.gitconfig.specific
