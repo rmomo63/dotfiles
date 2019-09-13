@@ -12,7 +12,7 @@
 	branch = auto
 
 [core]
-	autoCRLF = false
+	autocrlf = input
 	editor = vim -c \"set fenc=utf-8\"
 	precomposeunicode = true
 	quotepath = false

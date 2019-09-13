@@ -5,15 +5,14 @@ else
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-if has "brew"; then
+which brew > /dev/null 2>&1
+if [ $? -eq 0 ]; then
   echo "Updating Homebrew..."
   brew update && brew upgrade
   [[ $? ]] && echo "$(tput setaf 2)Update Homebrew complete. ✔︎$(tput sgr0)"
 
   brew tap 'caskroom/cask'
-  brew tap 'homebrew/dupes'
   brew tap 'sanemat/font'
-  brew tap 'codekitchen/dinghy'
 
   local list_formulae
   local -a missing_formulae
@@ -22,10 +21,14 @@ if has "brew"; then
     'git'
     'ruby-build'
     'rbenv'
+    'nodenv'
+    'pyenv'
     'tmux'
     'docker-compose'
     'tig'
     'peco'
+    'awscli'
+    'node'
     'zsh'
   )
 
@@ -57,16 +60,21 @@ if has "brew"; then
 
   local -a missing_formulae=()
   local -a desired_formulae=(
-    'clipmenu'
+    'sublime-text'
     'google-chrome'
-    'virtualbox'
+    'atom'
+    'iterm2'
+    'clipmenu'
+    'the-unarchiver'
+    'bettertouchtool'
+    ''
   )
   # cask
   local installed=`brew cask list`
 
   for index in ${!desired_formulae[*]}
   do
-    local formula=`echo ${desired_formulae[$index]} | cut -d' ' -f 1`
+    let formula=`echo ${desired_formulae[$index]} | cut -d' ' -f 1`
     if [[ -z `echo "${installed}" | grep "^${formula}$"` ]]; then
       missing_formulae=("${missing_formulae[@]}" "${desired_formulae[$index]}")
     else
@@ -88,11 +96,9 @@ if has "brew"; then
   echo "$(tput setaf 2)Cleanup Homebrew complete. ✔︎$(tput sgr0)"
 fi
 
-# 必要なファイル類を持ってくる
-[ ! -d ${HOME}/antigen ] && git clone https://github.com/zsh-users/antigen.git ${HOME}/antigen
-
 # Brewで入れたプログラム言語管理コマンドの初期処理
-if has "rbenv"; then
+which rbenv > /dev/null 2>&1
+if [ $? -eq 0 ]; then
   # 最新のRubyを入れる
   latest=`rbenv install --list | grep -v - | tail -n 1`
   current=`rbenv versions | tail -n 1 | cut -d' ' -f 2`
